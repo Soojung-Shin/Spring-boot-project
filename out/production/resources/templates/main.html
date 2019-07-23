@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -23,8 +23,19 @@
     <nav class="navbar navbar-light bg-white">
         <a class="navbar-brand" href="#">Bootsbook</a>
         <form class="form-inline">
-            <a href="/account/login">로그인</a>
+            <div sec:authorize="!isAuthenticated()">
+                <a href="/login">로그인</a>
+            </div>
             <div class="input-group">
+                <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+                    <div>
+                        <span sec:authentication="name"></span> 님
+                        <form id="logout-form" class="form" method="post" action="/logout">
+                            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
+                            <input type="submit" value="Logout">
+                        </form>
+                    </div>
+                </div>
                 <input aria-describedby="button-addon2" aria-label="Recipient's username" class="form-control" type="text">
                 <div class="input-group-append">
                     <button class="btn btn-outline-primary" id="button-addon2" type="button">

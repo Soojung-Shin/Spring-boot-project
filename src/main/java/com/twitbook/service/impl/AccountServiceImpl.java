@@ -23,8 +23,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account insert(Account account) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        account.setAccount_password(bCryptPasswordEncoder.encode(account.getAccount_password()));
-        account.setAccount_role("USER");
+        account.setAccountPassword(bCryptPasswordEncoder.encode(account.getAccountPassword()));
+        account.setAccountRole("USER");
         return accountRepository.save(account);
     }
 

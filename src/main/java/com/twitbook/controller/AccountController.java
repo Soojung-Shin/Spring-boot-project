@@ -16,7 +16,10 @@ public class AccountController {
 
     private static final String USER_LIST_PATH_NAME = "userList";
     private static final String SIGNUP_FORM_PATH_NAME = "signUp";
+    private static final String LOGIN_FORM_PATH_NAME = "login";
     private static final String REDIRECT_TO_MAIN = "redirect:/";
+    private static final String REDIRECT_TO_LOGIN = "redirect:/login";
+
 
     @Autowired
     AccountService accountService;
@@ -27,23 +30,10 @@ public class AccountController {
         return USER_LIST_PATH_NAME;
     }
 
-    @RequestMapping(value = "/login/check", method = RequestMethod.POST)
-    public String checkLogin(@ModelAttribute("account") Account account) {
-
-        return REDIRECT_TO_MAIN;
-    }
-
-    @RequestMapping(value = "/join", method = RequestMethod.GET)
-    public String viewSignUpPage(ModelMap map) {
-        map.addAttribute("account", new Account());
-        map.addAttribute("action", "create");
-        return SIGNUP_FORM_PATH_NAME;
-    }
-
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String registerAccount(@ModelAttribute("account") Account account) {
         accountService.insert(account);
-        return REDIRECT_TO_MAIN;
+        return REDIRECT_TO_LOGIN;
     }
 
     @RequestMapping(value = "/modify/{id}", method = RequestMethod.GET)

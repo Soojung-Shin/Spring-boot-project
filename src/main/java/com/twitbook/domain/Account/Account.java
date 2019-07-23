@@ -15,24 +15,27 @@ import java.util.Date;
 public class Account implements Serializable {
 
     @Id
+    @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long account_id;
+    private Long accountId;
 
-    @Column(length = 30, nullable = false)
-    private String account_email;
+    @Column(name = "account_email", length = 30, nullable = false)
+    private String accountEmail;
 
-    @Column(nullable = false)
-    private String account_password;
+    @Column(name = "account_password", nullable = false)
+    private String accountPassword;
 
-    @Column(length = 20, nullable = false)
-    private String account_name;
+    @Column(name = "account_name", length = 20, nullable = false)
+    private String accountName;
 
-    @Column(length = 10, nullable = false)
-    private String account_role;
+    @Column(name = "account_role", length = 10, nullable = false)
+    private String accountRole;
 
+    @Column(name = "account_regDate")
     @CreationTimestamp
-    private Date account_regDate;
+    private Date accountRegDate;
 
+    @Column(name = "account_updateDate")
     @UpdateTimestamp
-    private Date account_updateDate;
+    private Date accountUpdateDate;
 }
