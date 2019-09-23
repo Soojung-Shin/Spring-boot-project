@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>조회수</th>
+        </tr>
+        <tr>
+            <td th:text="${post.getPostId()}">postId</td>
+            <td th:text="${post.getPostTitle()}">postTitle</td>
+            <td>신수정</td>
+            <td th:text="${post.getPostUpdateDate()}">postUpdateDate</td>
+            <td th:text="${post.getPostViews()}">postHit</td>
+        </tr>
+        <tr>
+            <td rowspan="5" th:text="${post.getPostContent()}"></td>
+        </tr>
+    </table>
+    <a th:href="@{/post/{id}/modify(id=${post.getPostId()})}">수정</a>
+    <a th:href="@{/post/{id}/delete(id=${post.getPostId()})}">삭제</a>
+    <a th:href="@{/}">목록</a>
+</body>
+</html>

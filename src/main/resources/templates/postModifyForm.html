@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify</title>
+</head>
+<body>
+    <form method="POST" th:action="@{/post/{id}/modify(id=${post.getPostId()})}">
+        글제목<input type="text" name="postTitle" th:value="${post.getPostTitle()}">
+        내용<input type="text" name="postContent" th:value="${post.getPostContent()}">
+        <button type="submit">수정</button>
+    </form>
+</body>
+</html>
