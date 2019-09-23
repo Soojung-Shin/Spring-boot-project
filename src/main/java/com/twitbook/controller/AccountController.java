@@ -1,6 +1,6 @@
 package com.twitbook.controller;
 
-import com.twitbook.domain.Account.Account;
+import com.twitbook.security.CustomUserDetails;
 import com.twitbook.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +17,7 @@ public class AccountController {
     private static final String USER_LIST_PATH_NAME = "userList";
     private static final String SIGNUP_FORM_PATH_NAME = "signUp";
     private static final String LOGIN_FORM_PATH_NAME = "login";
+    private static final String MYINFO_PATH_NAME = "profileModify";
     private static final String REDIRECT_TO_MAIN = "redirect:/";
     private static final String REDIRECT_TO_LOGIN = "redirect:/login";
 
@@ -24,16 +25,15 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getAccountList(ModelMap map) {
-        map.addAttribute("userList", accountService.findAll());
-        return USER_LIST_PATH_NAME;
-    }
-
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String registerAccount(@ModelAttribute("account") Account account) {
+    public String registerAccount(@ModelAttribute("account") CustomUserDetails account) {
         accountService.insert(account);
         return REDIRECT_TO_LOGIN;
+    }
+
+    @RequestMapping(value = "/myInfo", method = RequestMethod.GET)
+    public String myInfo() {
+        return MYINFO_PATH_NAME;
     }
 
     @RequestMapping(value = "/modify/{id}", method = RequestMethod.GET)
@@ -44,7 +44,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateAccount(@ModelAttribute("account") Account account) {
+    public String updateAccount(@ModelAttribute("account") CustomUserDetails account) {
         accountService.update(account);
         return REDIRECT_TO_MAIN;
     }

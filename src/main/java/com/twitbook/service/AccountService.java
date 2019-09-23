@@ -1,13 +1,14 @@
 package com.twitbook.service;
 
-import com.twitbook.domain.Account.Account;
+import com.twitbook.security.CustomUserDetails;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AccountService {
-    List<Account> findAll();
-    Account insert(Account account);
-    Account update(Account account);
-    Account delete(Long id);
-    Account findById(Long id);
+    List<CustomUserDetails> findAll();
+    CustomUserDetails insert(CustomUserDetails account);
+    CustomUserDetails update(CustomUserDetails account);
+    CustomUserDetails delete(Long id);
+    Optional<CustomUserDetails> findById(Long id);
 }

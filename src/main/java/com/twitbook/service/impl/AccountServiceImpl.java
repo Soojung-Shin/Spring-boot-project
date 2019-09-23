@@ -1,13 +1,15 @@
 package com.twitbook.service.impl;
 
-import com.twitbook.domain.Account.Account;
 import com.twitbook.domain.Account.AccountRepository;
+import com.twitbook.security.CustomUserDetails;
 import com.twitbook.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -16,32 +18,36 @@ public class AccountServiceImpl implements AccountService {
     AccountRepository accountRepository;
 
     @Override
-    public List<Account> findAll() {
+    public List<CustomUserDetails> findAll() {
         return accountRepository.findAll();
     }
 
     @Override
-    public Account insert(Account account) {
+    public CustomUserDetails insert(CustomUserDetails account) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         account.setAccountPassword(bCryptPasswordEncoder.encode(account.getAccountPassword()));
-        account.setAccountRole("USER");
+        //account.setAccountRole("ROLE_USER");
         return accountRepository.save(account);
     }
 
     @Override
-    public Account update(Account account) {
-        return accountRepository.save(account);
+    public CustomUserDetails update(CustomUserDetails account) {
+        return accountRepository.saveAndFlush(account);
     }
 
     @Override
-    public Account delete(Long id) {
-        Account account = accountRepository.findById(id).get();
-        accountRepository.delete(account);
-        return account;
+    public CustomUserDetails delete(Long id) {
+        Optional<CustomUserDetails> account = accountRepository.findById(id);
+        if(account.isPresent()) {
+            accountRepository.delete(account.get());
+            return account.get();
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Account findById(Long id) {
-        return accountRepository.findById(id).get();
+    public Optional<CustomUserDetails> findById(Long id) {
+        return accountRepository.findById(id);
     }
 }
